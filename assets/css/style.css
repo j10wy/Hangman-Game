@@ -1,0 +1,48 @@
+/* --- Fonts, colors and animations --- */
+
+@font-face {
+    font-family: 'game_of_thronesregular';
+    src: url('../fonts/got.woff2') format('woff2'),
+    url('../fonts/got.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@keyframes letterSpacing {
+    0% {
+        letter-spacing: 50px;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1%;
+    }
+    100% {
+        letter-spacing: 0px;
+    }
+}
+
+/* --- HTML Elements --- */
+
+body {
+    background-color: #542828;
+}
+
+h1 {
+    font-family: 'game_of_thronesregular', "Times New Roman", "Times", serif;
+    font-weight: normal;
+    text-align: center;
+    text-shadow: 0 0 10px #f08d15;
+    color: #fff9d4;
+    height: 20px;
+    top: -10px;
+    margin: 50px 5px;
+    animation: letterSpacing 2s 1;
+}
+
+h1>span {
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    top: -10px;
+}
+

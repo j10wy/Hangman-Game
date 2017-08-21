@@ -8,9 +8,9 @@
     font-style: normal;
 }
 
-@keyframes letterSpacing {
+@keyframes letterspacing {
     0% {
-        letter-spacing: 50px;
+        letter-spacing: 32px;
         opacity: 0;
     }
     50% {
@@ -21,28 +21,122 @@
     }
 }
 
-/* --- HTML Elements --- */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 2000px, 0);
+    }
 
-body {
-    background-color: #542828;
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-h1 {
+
+/* --- HTML Elements --- */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+div.container {
+    position: static;
+    background: transparent;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    z-index: 0;
+}
+
+h1.title {
     font-family: 'game_of_thronesregular', "Times New Roman", "Times", serif;
+    font-size: 48px;
+    line-height: 100%;
+    padding-top: 50px;
     font-weight: normal;
     text-align: center;
     text-shadow: 0 0 10px #f08d15;
     color: #fff9d4;
-    height: 20px;
-    top: -10px;
-    margin: 50px 5px;
-    animation: letterSpacing 2s 1;
+    animation: letterspacing 3.2s 1;
+    z-index: 10;
 }
 
-h1>span {
+h1.title>span {
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     position: relative;
-    top: -10px;
+    top: -16px;
+    margin-left: 8px;
 }
 
+
+
+/* --- Game Area --- */
+
+div#game {
+    position: relative;
+    background: rgba(0, 0, 0, .7);
+    width: 75vw;
+    height: 75vh;
+    margin: 16px auto 0 auto;
+    border: 5px solid #404040;
+    visibility: hidden;
+}
+
+div#game.fadeInStart {
+    animation: fadeInUp 1s 1;
+    visibility: visible;
+}
+
+div#game div.status {
+    width: 50%;
+    margin: 0 auto;
+}
+
+div#game div.status img {
+    margin-top: calc(32px * 4);
+    width: 100%;
+}
+
+span.symbol {
+    position: absolute;
+    width: 5.9027777777777776vw;
+    height: 5.9027777777777776vw;
+    border-radius: 100%;
+    background: darkred;
+    background-size: 5.2083333333333336vw;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.symbol.baratheon {
+    bottom: -3.4722222222222224vw;
+    left: -3.4722222222222224vw;
+    background-image: url("../images/symbol-baratheon.png")
+}
+
+.symbol.lanister {
+    right: -3.4722222222222224vw;
+    top: -3.4722222222222224vw;
+    background-image: url("../images/symbol-lanister.png")
+}
+
+.symbol.stark {
+    top: -3.4722222222222224vw;
+    left: -3.4722222222222224vw;
+    background-image: url("../images/symbol-stark.png")
+}
+
+.symbol.targarian {
+    bottom: -3.4722222222222224vw;
+    right: -3.4722222222222224vw;
+    background-image: url("../images/symbol-targarian.png")
+}

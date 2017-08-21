@@ -4,15 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Hangman: Game of Thrones edition</title>
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 
 <body>
-    <div id="title">
-        <h1>Game <span>of</span> Thrones</h1>
-    </div>
-    <div id="game">
+    <div class="container">
+        <h1 class="title">Game <span>of</span> Thrones</h1>
+        <div id="game">
+            <!-- House Banners -->
+            <span class="symbol baratheon"></span>
+            <span class="symbol lanister"></span>
+            <span class="symbol stark"></span>
+            <span class="symbol targarian"></span>
+
+            <div class="status">
+                
+            </div>
+        </div>
     </div>
     <script src="assets/js/got-hangman.js"></script>
 </body>

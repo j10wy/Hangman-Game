@@ -99,11 +99,12 @@ div#game.fadeInUp {
 div#game div.status {
     width: 50%;
     margin: 0 auto;
+    text-align: center;
 }
 
 div#game div.status img {
     margin-top: calc(32px * 4);
-    width: 100%;
+    height: calc(100vh/4);
 }
 
 div#game h1.hint, div#game h1.word {
@@ -117,7 +118,7 @@ div#game h1.hint, div#game h1.word {
     margin: 32px auto;
 }
 
-span.symbol {
+span.sigil {
     position: absolute;
     width: 5.9027777777777776vw;
     height: 5.9027777777777776vw;
@@ -128,26 +129,26 @@ span.symbol {
     background-position: center;
 }
 
-.symbol.baratheon {
+.sigil.baratheon {
     bottom: -3.4722222222222224vw;
     left: -3.4722222222222224vw;
-    background-image: url("../images/symbol-baratheon.png")
+    background-image: url("../images/sigil-baratheon.png")
 }
 
-.symbol.lanister {
+.sigil.lanister {
     right: -3.4722222222222224vw;
     top: -3.4722222222222224vw;
-    background-image: url("../images/symbol-lanister.png")
+    background-image: url("../images/sigil-lanister.png")
 }
 
-.symbol.stark {
+.sigil.stark {
     top: -3.4722222222222224vw;
     left: -3.4722222222222224vw;
-    background-image: url("../images/symbol-stark.png")
+    background-image: url("../images/sigil-stark.png")
 }
 
-.symbol.targarian {
+.sigil.targarian {
     bottom: -3.4722222222222224vw;
     right: -3.4722222222222224vw;
-    background-image: url("../images/symbol-targarian.png")
+    background-image: url("../images/sigil-targarian.png")
 }

@@ -80,7 +80,7 @@ hangman.startGame = function (selector) {
                 self.newGame();
                 console.log("Animation complete:", param.animationName);
             });
-        } else if (event.key === 'Enter' && isPlaying) {
+        } else if (event.key === 'Enter' && self.playing) {
             console.log("You are already playing a game.");
         }
     });

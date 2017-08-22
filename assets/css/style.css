@@ -91,7 +91,7 @@ div#game {
     visibility: hidden;
 }
 
-div#game.fadeInStart {
+div#game.fadeInUp {
     animation: fadeInUp 1s 1;
     visibility: visible;
 }
@@ -104,6 +104,17 @@ div#game div.status {
 div#game div.status img {
     margin-top: calc(32px * 4);
     width: 100%;
+}
+
+div#game h1.hint, div#game h1.word {
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    color: white;
+    display: block;
+    padding: 32px;
+    text-align: center;
+    width: 64%;
+    margin: 32px auto;
 }
 
 span.symbol {

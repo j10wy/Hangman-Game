@@ -5,9 +5,26 @@
 // Create the hangman object.
 var hangman = {};
 
-hangman.playing = false;
-
 hangman.gameElement = "#game";
+hangman.playing = false;
+hangman.hearts = {
+    numHearts: 0,
+    heartsElement: "#hearts",
+    generateHearts: function (word, element) {
+        var wordArray = [];
+    
+        for (var l = 0; l < word.length; l++) {
+            wordArray.push(l);
+        }
+    
+        wordArray.forEach(function (item) {
+            var pixelHeart = document.createElement("img");
+            pixelHeart.src = "assets/images/pixel-heart.png";
+            pixelHeart.className = "pixelheart";
+            element.appendChild(pixelHeart);
+        });
+    }
+};
 
 // Create the array of items the user will guess.
 hangman.dictionary = [{
@@ -31,6 +48,7 @@ hangman.dictionary = [{
 // Array of background image numbers
 hangman.backgrounds = ["01", "02", "03", "04", "05", "06"];
 
+// Gif object contains win/lose property, each has an array of IDs for images on giphy.com
 hangman.gifs = {
     win: [
         "l41YedIbenuBH6ljO",
@@ -76,22 +94,28 @@ hangman.startGame = function (selector) {
             self.playing = true;
 
             // Listen for the animations on div#game to complete. Then run hangman.newGame.
-            self.listen(hangman.gameElement, "animationend", function (param) {
+            self.listen(self.gameElement, "animationend", function (param) {
                 self.newGame();
                 console.log("Animation complete:", param.animationName);
             });
         } else if (event.key === 'Enter' && self.playing) {
+            // If the player is already in game and hits enter, console.log the message below.
             console.log("You are already playing a game.");
         }
     });
 }
 
+// Setup a new game
 hangman.newGame = function () {
-    var item = hangman.randomize(hangman.dictionary);
+    // Uses my randomize function to grab a random item from hangman.dictionary 
+    var item = this.randomize(this.dictionary);
     var word = item.word;
     var hint = item.hint;
+    var hearts = this.dictionary.length * 2;
 
-    var gameBoard = document.querySelector(hangman.gameElement);
+    // Create elements for the word and hint. Then add them to the game area.
+    var gameElement = document.querySelector(this.gameElement);
+
     var hintElement = document.createElement("h1");
     hintElement.className += 'hint';
     hintElement.innerHTML = hint;
@@ -100,8 +124,12 @@ hangman.newGame = function () {
     wordElement.className += 'word';
     wordElement.innerHTML = word;
 
-    gameBoard.appendChild(hintElement);
-    gameBoard.appendChild(wordElement);
+    var heartsElement = document.querySelector(this.hearts.heartsElement);
+
+    gameElement.appendChild(hintElement);
+    gameElement.appendChild(wordElement);
+
+    this.hearts.generateHearts(word, heartsElement);
 
     // Log the word and hint to the console for testing (aka cheating).
     console.log("WORD:", word);
@@ -119,10 +147,11 @@ hangman.randomize = function (arr) {
 // Sets a random background image from the hangman.backgrounds array.
 hangman.setBackground = function (selector) {
     var element = document.querySelector(selector);
-    var bg = hangman.randomize(hangman.backgrounds);
+    var bg = this.randomize(this.backgrounds);
     element.style.backgroundImage = 'url("assets/images/got-bg-' + bg + '.jpg")';
 }
 
+// When the player wins/loses display an image from hangman.gifs object
 hangman.statusImage = function (selector, status) {
     var element = document.querySelector(selector);
     var img = document.createElement("img");
@@ -133,6 +162,7 @@ hangman.statusImage = function (selector, status) {
 }
 
 // Custom listen function tht takes an element, an event and a callback function.
+// I query for elements throughout many of the hangman object props, so I thought this would help keep things consise.
 hangman.listen = function (selector, event, callback) {
     var element = document.querySelector(selector);
     element.addEventListener(event, callback, false);
@@ -140,10 +170,12 @@ hangman.listen = function (selector, event, callback) {
 
 /* ------ INITIALIZE GAME ------ */
 
+//Start a new game
 hangman.startGame(hangman.gameElement);
 
 hangman.listen("h1.title", "animationend", function (param) {
     console.log("Animation complete:", param.animationName);
 });
 
+// Set a random background everytime the page loads.
 hangman.setBackground("div.container");

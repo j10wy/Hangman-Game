@@ -2,8 +2,7 @@
 
 @font-face {
     font-family: 'game_of_thronesregular';
-    src: url('../fonts/got.woff2') format('woff2'),
-    url('../fonts/got.woff') format('woff');
+    src: url('../fonts/got.woff2') format('woff2'), url('../fonts/got.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -26,7 +25,6 @@
         opacity: 0;
         transform: translate3d(0, 2000px, 0);
     }
-
     to {
         opacity: 1;
         transform: none;
@@ -49,6 +47,7 @@ body {
 
 div.container {
     position: static;
+    overflow: auto;
     background: transparent;
     background-size: cover;
     background-position: center;
@@ -61,12 +60,10 @@ h1.title {
     font-size: 48px;
     line-height: 100%;
     padding-top: 50px;
-    font-weight: normal;
     text-align: center;
     text-shadow: 0 0 10px #f08d15;
     color: #fff9d4;
     animation: letterspacing 3.2s 1;
-    z-index: 10;
 }
 
 h1.title>span {
@@ -78,17 +75,16 @@ h1.title>span {
 }
 
 
-
 /* --- Game Area --- */
 
 div#game {
     position: relative;
+    visibility: hidden;
     background: rgba(0, 0, 0, .7);
     width: 75vw;
-    height: 75vh;
+    min-height: 400px;
     margin: 16px auto 0 auto;
     border: 5px solid #404040;
-    visibility: hidden;
 }
 
 div#game.fadeInUp {
@@ -107,7 +103,8 @@ div#game div.status img {
     height: calc(100vh/4);
 }
 
-div#game h1.hint, div#game h1.word {
+div#game h1.hint,
+div#game h1.word {
     font-family: "Arial", sans-serif;
     font-size: 24px;
     color: white;
@@ -116,6 +113,21 @@ div#game h1.hint, div#game h1.word {
     text-align: center;
     width: 64%;
     margin: 32px auto;
+}
+
+div#game div#hearts {
+    padding: 16px;
+    text-align: center;
+}
+
+div#game div#hearts .pixelheart {
+    display: inline-block;
+    width: 32px;
+    margin-right: 8px;
+}
+
+div#game div#hearts .pixelheart:last-child {
+    margin-right: 0px;
 }
 
 span.sigil {

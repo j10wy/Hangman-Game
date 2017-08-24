@@ -103,16 +103,36 @@ div#game div.status img {
     height: calc(100vh/4);
 }
 
-div#game h1.hint,
-div#game h1.word {
-    font-family: "Arial", sans-serif;
+div#game h1#hint,
+div#game div#mask {
     font-size: 24px;
     color: white;
     display: block;
     padding: 32px;
     text-align: center;
     width: 64%;
-    margin: 32px auto;
+}
+
+div#game h1#hint {
+    font-family: 'IM Fell Double Pica SC', serif;
+    margin: 32px auto 0 auto;
+}
+
+div#game div#mask {
+    margin: auto;
+}
+
+div#game div#mask .lettermask {
+    display: inline-block;
+    color:white;
+    font-size: 48px;
+    font-family: 'IM Fell French Canon SC', serif;
+    text-transform: uppercase;
+    margin-right:16px;
+}
+
+div#game div#mask .lettermask:last-child {
+    margin-right: none;
 }
 
 div#game div#hearts {
@@ -122,7 +142,7 @@ div#game div#hearts {
 
 div#game div#hearts .pixelheart {
     display: inline-block;
-    width: 32px;
+    width: 24px;
     margin-right: 8px;
 }
 

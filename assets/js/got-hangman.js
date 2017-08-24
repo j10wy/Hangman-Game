@@ -6,28 +6,54 @@
 var hangman = {};
 
 hangman.gameElement = "#game";
+
 hangman.playing = false;
+
 hangman.hearts = {
     numHearts: 0,
     heartsElement: "#hearts",
     generateHearts: function (word, element) {
-        var wordArray = [];
-    
-        for (var l = 0; l < word.length; l++) {
-            wordArray.push(l);
+        for (var l = 0; l < (word.length * 2); l++) {
+            (function () {
+                var pixelHeart = document.createElement("img");
+                pixelHeart.src = "assets/images/pixel-heart.png";
+                pixelHeart.className = "pixelheart";
+                element.appendChild(pixelHeart);
+            }());
         }
-    
-        wordArray.forEach(function (item) {
-            var pixelHeart = document.createElement("img");
-            pixelHeart.src = "assets/images/pixel-heart.png";
-            pixelHeart.className = "pixelheart";
-            element.appendChild(pixelHeart);
-        });
     }
 };
 
-// Create the array of items the user will guess.
-hangman.dictionary = [{
+hangman.word = {
+    maskElement: "#mask",
+    hintElement: "#hint",
+    // Takes the word and html element as parameters
+    maskWord: function (word, element) {
+        for (var l = 0; l < word.length; l++) {
+            console.log("l is:", l, word[l]);
+
+            (function () {
+                var letterMask = document.createElement("span");
+                letterMask.textContent = "_";
+                letterMask.className = "lettermask";
+                element.appendChild(letterMask);
+            }());
+        }
+        console.log(mask);
+    },
+    getLetters: function(className){
+        var letters = document.querySelectorAll(className);
+        console.log("hagman.word.getLetters:",letters);
+    },
+    getIndexes: function (arr, val) {
+        var indexes = [], i;
+        for(i = 0; i < arr.length; i++)
+            if (arr[i] === val)
+                indexes.push(i);
+        return indexes;
+    },
+    // Create the array of items the user will guess.
+    dictionary: [{
         word: "Valyrian",
         hint: "This steel is recognizable by its strength and light weight in comparison to ordinary steel, as well as by a distinctive rippled pattern visible in blades made from it."
     },
@@ -43,7 +69,8 @@ hangman.dictionary = [{
         word: "Arya",
         hint: "trained as a Faceless Man at the House of Black and White in Braavos."
     }
-];
+]
+}
 
 // Array of background image numbers
 hangman.backgrounds = ["01", "02", "03", "04", "05", "06"];
@@ -77,7 +104,6 @@ hangman.gifs = {
     ]
 }
 
-
 /* ------ HANGMAN METHODS ------ */
 
 // Takes the div#game element as a parameter 
@@ -101,36 +127,36 @@ hangman.startGame = function (selector) {
         } else if (event.key === 'Enter' && self.playing) {
             // If the player is already in game and hits enter, console.log the message below.
             console.log("You are already playing a game.");
+        } else if (true) {
+
         }
     });
+
 }
 
 // Setup a new game
 hangman.newGame = function () {
-    // Uses my randomize function to grab a random item from hangman.dictionary 
-    var item = this.randomize(this.dictionary);
+    // Uses my randomize function to grab a random item from hangman.word.dictionary 
+    var item = this.randomize(this.word.dictionary);
     var word = item.word;
     var hint = item.hint;
-    var hearts = this.dictionary.length * 2;
 
-    // Create elements for the word and hint. Then add them to the game area.
+    // Create a reference to the div#game. 
     var gameElement = document.querySelector(this.gameElement);
 
-    var hintElement = document.createElement("h1");
-    hintElement.className += 'hint';
-    hintElement.innerHTML = hint;
-
-    var wordElement = document.createElement("h1");
-    wordElement.className += 'word';
-    wordElement.innerHTML = word;
-
+    // Create a reference to the div#hearts, div#mask and div#hint
     var heartsElement = document.querySelector(this.hearts.heartsElement);
+    var maskElement = document.querySelector(this.word.maskElement);
+    var hintElement = document.querySelector(this.word.hintElement);
 
-    gameElement.appendChild(hintElement);
-    gameElement.appendChild(wordElement);
-
+    // Call hangman.hearts generateHearts method. Pass in the random word and the div#hearts.
     this.hearts.generateHearts(word, heartsElement);
+    this.word.maskWord(word, maskElement);
+    hintElement.textContent = hint;
 
+
+    // Testing hangman.word.getLetters
+    hangman.word.getLetters(".lettermask");
     // Log the word and hint to the console for testing (aka cheating).
     console.log("WORD:", word);
     console.log("HINT:", hint);

@@ -41,35 +41,36 @@ hangman.word = {
         }
         console.log(mask);
     },
-    getLetters: function(className){
+    getLetters: function (className) {
         var letters = document.querySelectorAll(className);
-        console.log("hagman.word.getLetters:",letters);
+        console.log("hagman.word.getLetters:", letters);
     },
     getIndexes: function (arr, val) {
-        var indexes = [], i;
-        for(i = 0; i < arr.length; i++)
+        var indexes = [];
+        var i;
+        for (i = 0; i < arr.length; i++)
             if (arr[i] === val)
                 indexes.push(i);
         return indexes;
     },
     // Create the array of items the user will guess.
     dictionary: [{
-        word: "Valyrian",
-        hint: "This steel is recognizable by its strength and light weight in comparison to ordinary steel, as well as by a distinctive rippled pattern visible in blades made from it."
-    },
-    {
-        word: "Blindness",
-        hint: "Arya's punishment for stealing from the Many-Face God."
-    },
-    {
-        word: "Daenerys",
-        hint: "First of Her Name, the Unburnt, Queen of the Andals and the First Men, Khaleesi of the Great Grass Sea, Breaker of Chains, and Mother of Dragons."
-    },
-    {
-        word: "Arya",
-        hint: "trained as a Faceless Man at the House of Black and White in Braavos."
-    }
-]
+            word: "Valyrian",
+            hint: "This steel is recognizable by its strength and light weight in comparison to ordinary steel, as well as by a distinctive rippled pattern visible in blades made from it."
+        },
+        {
+            word: "Blindness",
+            hint: "Arya's punishment for stealing from the Many-Face God."
+        },
+        {
+            word: "Daenerys",
+            hint: "First of Her Name, the Unburnt, Queen of the Andals and the First Men, Khaleesi of the Great Grass Sea, Breaker of Chains, and Mother of Dragons."
+        },
+        {
+            word: "Arya",
+            hint: "trained as a Faceless Man at the House of Black and White in Braavos."
+        }
+    ]
 }
 
 // Array of background image numbers
@@ -115,7 +116,10 @@ hangman.startGame = function (selector) {
 
     // Add a listener for the ENTER key. Add fadeInUp class to trigger the animation. Set hangman.playing to true.
     document.addEventListener("keyup", function (event) {
-        if (event.key === 'Enter' && !self.playing) {
+
+        var key = event.key;
+
+        if (key === 'Enter' && !self.playing) {
             element.className += "fadeInUp";
             self.playing = true;
 
@@ -124,11 +128,9 @@ hangman.startGame = function (selector) {
                 self.newGame();
                 console.log("Animation complete:", param.animationName);
             });
-        } else if (event.key === 'Enter' && self.playing) {
+        } else if (key === 'Enter' && self.playing) {
             // If the player is already in game and hits enter, console.log the message below.
-            console.log("You are already playing a game.");
-        } else if (true) {
-
+            console.log("Stop pressing Enter. You are already playing a game.");
         }
     });
 
@@ -136,10 +138,14 @@ hangman.startGame = function (selector) {
 
 // Setup a new game
 hangman.newGame = function () {
+
+    // Creating a reference to this (hangman) so I can access the hangman.playing status in the event listener at the bottom of this method.
+    var self = this;
+
     // Uses my randomize function to grab a random item from hangman.word.dictionary 
     var item = this.randomize(this.word.dictionary);
-    var word = item.word;
-    var hint = item.hint;
+    var word = item.word.toLowerCase();
+    var hint = item.hint.toLowerCase();
 
     // Create a reference to the div#game. 
     var gameElement = document.querySelector(this.gameElement);
@@ -154,12 +160,29 @@ hangman.newGame = function () {
     this.word.maskWord(word, maskElement);
     hintElement.textContent = hint;
 
-
     // Testing hangman.word.getLetters
     hangman.word.getLetters(".lettermask");
     // Log the word and hint to the console for testing (aka cheating).
-    console.log("WORD:", word);
-    console.log("HINT:", hint);
+    console.log("**** WORD ****", word);
+    console.log("**** HINT ****", hint);
+
+    document.addEventListener("keyup", function (event) {
+        var key = event.key.toLocaleLowerCase();
+        var indexes = [];
+        var hasKey = word.indexOf(key) !== -1 ? true : false;
+        console.log(hasKey);
+        if (key !== 'Enter' && self.playing && hasKey) {
+            key = key.toLowerCase();
+            console.log("Key Pressed:",key);
+            indexes = self.word.getIndexes(word, key);
+            indexes.forEach(function(item){
+                console.log("index item:",item);
+                document.querySelectorAll(".lettermask")[item].textContent = key;
+            });
+        } else {
+            console.log("NOT VALID");
+        }
+    });
 }
 
 // A function used to ranomize the dictionary array, the background images, and the win/loss gifs.
@@ -181,14 +204,14 @@ hangman.setBackground = function (selector) {
 hangman.statusImage = function (selector, status) {
     var element = document.querySelector(selector);
     var img = document.createElement("img");
-    var winOrLose = status === 'win' ? hangman.randomize(hangman.gifs.win) : hangman.randomize(hangman.gifs.lose);
+    var winOrLose = status === 'win' ? this.randomize(this.gifs.win) : this.randomize(this.gifs.lose);
     img.src = "https://media.giphy.com/media/" + winOrLose + "/giphy.gif";
     element.innerHTML = "";
     element.appendChild(img);
 }
 
 // Custom listen function tht takes an element, an event and a callback function.
-// I query for elements throughout many of the hangman object props, so I thought this would help keep things consise.
+// I use this custom listener mainly to detect the animationend event.
 hangman.listen = function (selector, event, callback) {
     var element = document.querySelector(selector);
     element.addEventListener(event, callback, false);

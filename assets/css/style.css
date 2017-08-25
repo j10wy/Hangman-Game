@@ -115,7 +115,7 @@ div#game div#mask {
 
 div#game h1#hint {
     font-family: 'IM Fell Double Pica SC', serif;
-    margin: 32px auto 0 auto;
+    margin: 0px auto 32px auto;
 }
 
 div#game div#mask {

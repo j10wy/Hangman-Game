@@ -20,7 +20,7 @@
     }
 }
 
-@keyframes fadeInUp {
+@keyframes fadeInUpBig {
     0% {
         opacity: 0;
         transform: translate3d(0, 2000px, 0);
@@ -30,6 +30,28 @@
         transform: none;
     }
 }
+
+@keyframes fadeInUpSmall {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 500px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+@keyframes flash {
+    from, 50%, to {
+      opacity: 1;
+    }
+  
+    25%, 75% {
+      opacity: 0;
+    }
+  }
 
 
 /* --- HTML Elements --- */
@@ -59,7 +81,7 @@ h1.title {
     font-family: 'game_of_thronesregular', "Times New Roman", "Times", serif;
     font-size: 48px;
     line-height: 100%;
-    padding-top: 50px;
+    padding-top: 64px;
     text-align: center;
     text-shadow: 0 0 10px #f08d15;
     color: #fff9d4;
@@ -74,6 +96,19 @@ h1.title>span {
     margin-left: 8px;
 }
 
+h3.press-start {
+    color:darkred;
+    font-size: 32px;
+    padding-top: 32vh;
+    font-family: 'IM Fell French Canon SC', serif;
+    text-align: center;
+    visibility: hidden;
+}
+
+h3.press-start.flash {
+    visibility: visible;
+    animation: flash 3s infinite;
+}
 
 /* --- Game Area --- */
 
@@ -85,10 +120,11 @@ div#game {
     min-height: 400px;
     margin: 16px auto 0 auto;
     border: 5px solid #404040;
+    transition: height 2s;
 }
 
-div#game.fadeInUp {
-    animation: fadeInUp 1s 1;
+div#game.fadeInUpBig {
+    animation: fadeInUpBig 1s 1;
     visibility: visible;
 }
 
@@ -99,8 +135,22 @@ div#game div.status {
 }
 
 div#game div.status img {
-    margin-top: calc(32px * 4);
-    height: calc(100vh/4);
+    margin: 64px auto 16px auto;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+}
+
+div#game div.status h3, div#game div.status h5 {
+    color:white;
+    font-size:24px;
+    font-weight: bold;
+    font-family: 'IM Fell Double Pica SC', serif;
+    margin:16px 0;
+}
+
+div#game div.status h3 {
+    font-size:32px;
 }
 
 div#game h1#hint,

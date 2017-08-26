@@ -1,6 +1,8 @@
 # Hangman: Game of Thrones Edition
 Hangman game homework for UCB bootcamp
 
+[Play](https://jeffreylowy.github.io/Hangman-Game/)
+
 ### The Game
 - Press enter to begin
 - In case you're unfamiliar with Game of Thrones, the word is logged to the console using console.warn

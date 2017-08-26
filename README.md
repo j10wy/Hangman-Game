@@ -17,7 +17,7 @@ I knew from the start I wanted to make it a Game of Thrones (GoT) theme. I start
 
 I downloaded TTF fonts for the generic GoT font and used [WOFFer – WOFF font converter](https://andrewsun.com/tools/woffer-woff-font-converter/) to convert the fonts for use on the page. The other fonts rely on Google Fonts and use Times as a fallback.
 
-Finally, I like the animations provided by the animation.css library, but I did not want to include the library in the page for just the two animations I planned to use. So I dug into their source code and pulled out the animations I needed. [1]() [2]() 
+Finally, I like the animations provided by the animation.css library, but I did not want to include the library in the page for just the two animations I planned to use. So I dug into their source code and pulled out the animations I needed. [1](https://github.com/jeffreylowy/Hangman-Game/blob/master/assets/css/style.css#L23) [2](https://github.com/jeffreylowy/Hangman-Game/blob/master/assets/css/style.css#L46) 
 
 #### JS & Chrome Dev Tools
 
@@ -25,8 +25,13 @@ I went in from the start knowing I wanted to accomplish all of the bonus tasks. 
 
 I learned a few cool tricks with Dev Tools:
 
-1. [Adding CSS to console.log statments](https://coderwall.com/p/fskzdw/colorful-console-log) - You can see this [here]() or in the console on keyup events and when animations complete.
+1. [Adding CSS to console.log statments](https://coderwall.com/p/fskzdw/colorful-console-log) - You can see this [here](https://github.com/jeffreylowy/Hangman-Game/blob/master/assets/js/got-hangman.js#L180) or in the console on keyup events and when animations complete.
 2. [Setting breakpoints in the Sources panel](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints)
+
+<img src="https://raw.githubusercontent.com/jeffreylowy/Hangman-Game/master/assets/images/got-arya-wtf-js.png" width="888" alt="DevTools breakpoints">
+
+
+<img src="https://raw.githubusercontent.com/jeffreylowy/Hangman-Game/master/assets/images/got-css-in-console.PNG" width="888" alt="DevTools CSS">
 
 ## Challenges I set for myself
 1. Make page responsive/fluid - at the very least I wanted a background that adapted to the window size.
